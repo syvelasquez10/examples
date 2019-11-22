@@ -337,7 +337,12 @@ function processCollision(hitbox_collision_x, hitbox_collision_y, hitbox_collisi
   //Provides a square where a hitbox is overlapping with the background
   //Returns [OriginX,OriginY,EndX,EndY]
   function hitboxOverlapMap(hitbox){
-    return [Math.floor(hitbox[0]),Math.floor(hitbox[1]),Math.ceil(hitbox[2]),Math.ceil(hitbox[3])];
+    const originX = hitbox[0] < 0 ? 0: Math.floor(hitbox[0]);
+    const originY = hitbox[1] < 0 ? 0: Math.floor(hitbox[1]);
+    const endX = hitbox[2] > this.currentMap.layoutData.length - 1 ? this.currentMap.layoutData.length -1:  Math.ceil(hitbox[2]);
+    const endY = hitbox[3] > this.currentMap.layoutData[0].length - 1 ? this.currentMap.layoutData[0].length -1:  Math.ceil(hitbox[3]);
+
+    return [originX, originY, endX, endY];
   }
 
   function checkAllOverlaps(){
